@@ -27,6 +27,7 @@ Route::get('/', function () {
         return view('welcome');
     });
 
+// List the Current Users
 Route::get('setting', function () {
    return view('setting', [
             'users' => User::orderBy('name', 'desc')->get()
@@ -41,15 +42,6 @@ return Redirect::to('auth/login');
 echo 'Your Are Auth user' . Auth::user()->email . '.' ;
 }   
  });
-
-
-//Route::get('task', function () {
-//if(Auth::guest()){
-//return Redirect::to('auth/login');
-//}else{
-  //      return view('view');
-//}
-   // });
 
 
 //Authenication Rules ... AuthController
@@ -111,6 +103,8 @@ Route::delete('/setting/{id}', function ($id) {
 
         return redirect('/setting');
     });
+
+
 
 });
 
