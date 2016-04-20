@@ -12,6 +12,7 @@
 */
 
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 
 Route::group(['middleware' => ['web']], function () {
@@ -26,6 +27,13 @@ Route::get('/', function () {
         return view('welcome');
     });
 
+Route::get('setting', function () {
+   return view('setting', [
+            'users' => User::orderBy('name', 'desc')->get()
+        ]);
+
+
+    });
 Route::get('home2', function () {
 if(Auth::guest()){
 return Redirect::to('auth/login');
@@ -87,6 +95,8 @@ return Redirect::to('auth/login');
         return redirect('/view');
     });
 
+
+
     /**
      * Delete Task
      */
@@ -95,6 +105,13 @@ return Redirect::to('auth/login');
 
         return redirect('/view');
     });
+
+Route::delete('/setting/{id}', function ($id) {
+        User::findOrFail($id)->delete();
+
+        return redirect('/setting');
+    });
+
 });
 
 Route::auth();

@@ -46,18 +46,42 @@
                 </a>
             </div>
 
+
+@if (Auth::guest())
+<!---- Show Nothing --- >
+@else 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/view') }}">Task</a></li>
-                </ul>
+</ul>
+@endif
+@if (Auth::guest())
+
+<!--- Nothing To Do ------>
+@else
+@if (Auth::user()->group === 1)
+
+<div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/setting') }}">Setting</a></li>
+</ul>
+
+
+@else 
+<!--- Nothing To Do ------>
+@endif
+@endif
+
+                
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                        <li><a href="{{ url('/auth/register') }}">Register</a></li>
+<!---                        <li><a href="{{ url('/auth/register') }}">Register</a></li>--->
                     @else
                         <li class="dropdown">
                             <a href="{{ url('/auth/logout') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
