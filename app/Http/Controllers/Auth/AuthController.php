@@ -52,6 +52,7 @@ public function __construct() { $this->middleware('guest', ['except' => ['logout
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'group' => 'required|max:255',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -67,6 +68,7 @@ public function __construct() { $this->middleware('guest', ['except' => ['logout
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'group' => $data['group'],
             'password' => bcrypt($data['password']),
         ]);
     }
